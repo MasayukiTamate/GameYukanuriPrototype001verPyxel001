@@ -1,7 +1,7 @@
 import tkinter as tk
 from CanvasData import CanvasData
 from MapData import MapData
-import pyxel
+
 
 
 class Application(tk.Frame):
