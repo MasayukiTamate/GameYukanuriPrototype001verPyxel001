@@ -1,6 +1,7 @@
 import pyxel
 from CanvasDataVerPyxel import CanvasData
 from MapData import MapData
+import PyxelUniversalFont as puf
 
 MASU_SIZE = 32
 BAIRITU = 2
@@ -23,11 +24,8 @@ class CanvasData:
                     pyxel.blt(MASU_SIZE * x * BAIRITU +16, MASU_SIZE * y * BAIRITU+16, 0, MASU_SIZE * 0, MASU_SIZE * 1, MASU_SIZE, MASU_SIZE, 1, 0, BAIRITU)
                     pass
 
-
         pyxel.blt(cx * MASU_SIZE *BAIRITU + 16,  cy * MASU_SIZE *BAIRITU + 16,0, MASU_SIZE * 0, MASU_SIZE * 2, MASU_SIZE, MASU_SIZE, 1, 0, BAIRITU)
         pass
-
-
 
     def pack(self):
         pass
@@ -84,10 +82,12 @@ class CanvasData:
 class App:
     def __init__(self):
         pyxel.init(SCREEN_WIDTH,SCREEN_HEIGHT, title="床塗りげ～む")
+        self.writer = puf.Writer("misaki_gothic.ttf")#フォントを指定
 
-
-        self.cx = 0
+        self.cx = 0#変数　プレイヤーキャラクターの座標
         self.cy = 0
+        self.men = 1 #変数　面数
+        self.clear_switch = 0 #フラグ　クリア条件
 
         self.mapdata = MapData([
             [0,0,0,0,0,0,0,0,0,0],
@@ -113,6 +113,13 @@ class App:
             [0,0,0,0,0,0,0,0,0,0]
         ])
 
+        self.nokori = 0
+        for i in self.mapdata.back:
+            for j in i:
+                if j == 0:
+                    self.nokori = self.nokori + 1
+
+
 
         self.canvasdata = CanvasData("")#初期化
 
@@ -120,11 +127,27 @@ class App:
         pyxel.run(self.update, self.draw)
 
     def update(self):
+        
+        if pyxel.btnp(pyxel.KEY_UP):
+            self.key_up()
+            pass
+        elif pyxel.btnp(pyxel.KEY_DOWN):
+            self.key_down()
+            pass
+        elif pyxel.btnp(pyxel.KEY_LEFT):
+            self.key_left()
+            pass
+        elif pyxel.btnp(pyxel.KEY_RIGHT):
+            self.key_right()
+            pass                  
+        else:
+            pass
         pass
 
     def draw(self):
         pyxel.cls(7)
         self.repaint()
+        self.writer.draw(10 * MASU_SIZE * BAIRITU + 8,0, f"残りのマス：{self.nokori=}", 32, pyxel.COLOR_BLACK)
         pass
 
     def repaint(self):
@@ -134,5 +157,45 @@ class App:
     def clear(self):
         pass
 
+    def key_up(self):
+        self.item_init()
+        if self.cy > 0:
+            if self.mapdata.is_back_kuro(self.cy - 1, self. cx) == True:
+                self.cy = self.cy - 1
+                self.move_finish()
+        pass
+
+    def key_down(self):
+        self.item_init()
+        if self.cy < 9:
+            if self.mapdata.is_back_kuro(self.cy + 1, self. cx) == True:
+                self.cy = self.cy + 1
+                self.move_finish()
+        pass
+
+    def key_left(self):
+        self.item_init()
+        if self.cx > 0:
+            if self.mapdata.is_back_kuro(self.cy , self. cx - 1) == True:
+                self.cx = self.cx - 1
+                self.move_finish()
+        pass
+
+    def key_right(self):
+        self.item_init()
+        if self.cx < 9:
+            if self.mapdata.is_back_kuro(self.cy , self. cx + 1) == True:
+                self.cx = self.cx + 1
+                self.move_finish()
+        pass
+
+    def item_init(self):
+        pass
+
+    def move_finish(self):
+        if self.count == 100:
+            self.canvasdata.clear(self.men)
+            self.clear_switch = 1
+            pass
 
 App()
