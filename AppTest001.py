@@ -22,7 +22,12 @@ class CanvasData:
                 if mapdata.is_back_renga(y, x) == True:
                     pyxel.blt(MASU_SIZE * x * BAIRITU +16, MASU_SIZE * y * BAIRITU+16, 0, MASU_SIZE * 0, MASU_SIZE * 1, MASU_SIZE, MASU_SIZE, 1, 0, BAIRITU)
                     pass
+
+
+        pyxel.blt(cx * MASU_SIZE *BAIRITU + 16,  cy * MASU_SIZE *BAIRITU + 16,0, MASU_SIZE * 0, MASU_SIZE * 2, MASU_SIZE, MASU_SIZE, 1, 0, BAIRITU)
         pass
+
+
 
     def pack(self):
         pass
@@ -125,7 +130,7 @@ class App:
     def repaint(self):
         self.canvasdata.paint(self.mapdata, self.cx, self.cy)
         pass
-    
+
     def clear(self):
         pass
 
