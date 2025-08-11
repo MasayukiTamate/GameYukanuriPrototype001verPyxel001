@@ -33,8 +33,9 @@ class CanvasData:
     def delete(self, s):
         pass
     
-    def clear(self, men):
-        self.canvas.create_text(550,420,text=str(men)+"面クリア！！",tag="clear_tag")
+    def clear(self, w, men):
+        w.draw(400, 400, f"{men}面クリア！！！", 64, pyxel.COLOR_BLACK)
+
         pass
 
     def item_area_init(self, orange_hake_count,
@@ -88,6 +89,8 @@ class App:
         self.cy = 0
         self.men = 1 #変数　面数
         self.clear_switch = 0 #フラグ　クリア条件
+        self.clearCount = 0
+
 
         self.mapdata = MapData([
             [0,0,0,0,0,0,0,0,0,0],
@@ -119,6 +122,8 @@ class App:
                 if j == 0:
                     self.nokori = self.nokori + 1
 
+        self.clearPoint = self.nokori
+
 
 
         self.canvasdata = CanvasData("")#初期化
@@ -147,7 +152,7 @@ class App:
     def draw(self):
         pyxel.cls(7)
         self.repaint()
-        self.writer.draw(10 * MASU_SIZE * BAIRITU + 8,0, f"残りのマス：{self.nokori=}", 32, pyxel.COLOR_BLACK)
+        self.writer.draw(10 * MASU_SIZE * BAIRITU + 8,0, f"残りのマス：{self.nokori} {self.clearCount} {self.clearPoint}", 32, pyxel.COLOR_BLACK)
         pass
 
     def repaint(self):
@@ -193,9 +198,15 @@ class App:
         pass
 
     def move_finish(self):
-        if self.count == 100:
-            self.canvasdata.clear(self.men)
-            self.clear_switch = 1
-            pass
 
+        self.canvasdata.clear(self.writer, self.men)
+        self.clear_switch = 1
+
+        self.mapdata.back_to_orange(self.cy, self.cx)
+        self.mapdata.delete_item(self.cy, self.cx)
+        self.count = self.count + 1
+#        self.repaint()
+#        self.item_count_repaint()
+#        self.clear()
+        pass
 App()
