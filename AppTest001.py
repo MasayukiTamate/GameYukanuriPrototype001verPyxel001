@@ -8,8 +8,10 @@ from ImageObject import ImageObject
 MASU_SIZE = 32
 BAIRITU = 2
 SCREEN_WIDTH,SCREEN_HEIGHT = 1400,MASU_SIZE*10*BAIRITU
-FILENAMECHARACTER = "character00164x64.jpg"
-
+FILENAMECHARACTER = "gazou/character00164x64.jpg"
+FILENAMEITEM1 = "gozou/hakeb64x64.jpg"
+FILENAMEITEM2 = "gazou/roll64x64.jpg"
+ZAHYOUITEM_X = 10 * MASU_SIZE * BAIRITU * 16
 '''-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 クラス　キャンバスデータ
 　ペイント
@@ -24,11 +26,19 @@ FILENAMECHARACTER = "character00164x64.jpg"
 '''
 class CanvasData:
     def __init__(self, master):
+        '''
+        '''
         pyxel.load("GameYukanuriPrototype001verPyxel001.pyxres")
+        self.item1_image_object = ImageObject(FILENAMEITEM1, ZAHYOUITEM_X, 16)
+        self.item2_image_object = ImageObject(FILENAMEITEM2, ZAHYOUITEM_X + 64 + 16, 16)
+        self.item1_image_object.set_colkey(7)#透過パレット番号＝７
+        self.item2_image_object.set_colkey(7)#透過パレット番号＝７
 #        directory = ""
         pass
 
     def paint(self, mapdata, cx, cy):
+        '''
+        '''
         for x in range(10):
             for y in range(10):
                 if mapdata.is_back_kuro(y, x) == True:
@@ -45,12 +55,18 @@ class CanvasData:
         pass
 
     def pack(self):
+        '''
+        '''
         pass
 
     def delete(self, s):
+        '''
+        '''
         pass
 
     def clear(self, w, men):
+        '''
+        '''
         w.draw(400, 400, f"{men}面クリア！！！", 64, pyxel.COLOR_BLACK)
 
         pass
@@ -60,14 +76,23 @@ class CanvasData:
             kuro_roller_count, small_hammer_count,
             big_hammer_count, orange_colorball_count,
             kuro_colorball_count):
+        '''
+        '''
         pass
     def item_count_repaint(self, orange_hake_count,
             kuro_hake_count, orange_roller_count,
             kuro_roller_count, small_hammer_count,
             big_hammer_count, orange_colorball_count,
             kuro_colorball_count):
+        '''
+        '''
+        self.item1_image_object.draw()
+        self.item2_image_object.draw()
+
         pass
     def hake(self, c1, c2, c3, c4, hake_switch, cx, cy):
+        '''
+        '''
         if hake_switch[0] == 1:
             self.create_rectangle(50*(cx-1),50*cy,50*cx,50*(cy+1),c1,3,"item_waku")
             pass
@@ -83,6 +108,8 @@ class CanvasData:
         pass
 
     def roll(self, c1, c2, c3, c4, mass_continued_num, cx, cy):
+        '''
+        '''
         if mass_continued_num[0] > 0:
             self.create_rectangle(50*(cx-mass_continued_num[0]),50*cy,50*cx,50*(cy+1),c1,5,"item_waku")
             pass
@@ -103,6 +130,8 @@ class CanvasData:
 '''
 class App:
     def __init__(self):
+        '''
+        '''
         pyxel.init(SCREEN_WIDTH,SCREEN_HEIGHT, title="床塗りげ～む")
 
         self.writer = puf.Writer("misaki_gothic.ttf")#フォントを指定
@@ -113,9 +142,11 @@ class App:
         self.clear_switch = 0 #フラグ　クリア条件
         self.clearCount = 0
         self.count = 0
-        self.img = pyxel.Image(64, 64)
-        self.img.load(x=0, y=0, filename="gazou/character00164x64.jpg")
+#        self.img = pyxel.Image(64, 64)
+#        self.img.load(x=0, y=0, filename="FILENAMECHARACTER")
+
         self.image_object = ImageObject(FILENAMECHARACTER, self.cx, self.cy)
+        self.image_object.set_colkey(7)#透過パレット番号＝７
 
 
         self.mapdata = MapData([
@@ -154,10 +185,12 @@ class App:
 
         self.canvasdata = CanvasData("")#初期化
 
-
+        self.kazu = 0
         pyxel.run(self.update, self.draw)
 
     def update(self):
+        '''
+        '''
 
         if pyxel.btnp(pyxel.KEY_UP):
             self.key_up()
@@ -173,25 +206,43 @@ class App:
             pass
         else:
             pass
-        pass
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#本クラス
+
 
     def draw(self):
+        '''
+
+        '''
         pyxel.cls(7)
         self.repaint()
         self.image_object.set_pos(self.cx * MASU_SIZE * BAIRITU,self.cy * MASU_SIZE * BAIRITU)
+
         self.image_object.draw()
+
 #        pyxel.blt(0, 0, self.img, 0, 0, self.img.width, self.img.height)表示を試す
-        self.writer.draw(10 * MASU_SIZE * BAIRITU + 8,0, f"残りのマス：{self.nokori} {self.clearCount}　{self.count} {self.clearPoint}", 32, pyxel.COLOR_BLACK)
+        self.writer.draw(10 * MASU_SIZE * BAIRITU + 8,0, f"残りのマス：{self.nokori} {self.clearCount}　{self.count} {self.clearPoint} {self.kazu=}", 32, pyxel.COLOR_BLACK)
         pass
 
     def repaint(self):
+        '''
+        リペイント
+
+        描画更新
+        '''
         self.canvasdata.paint(self.mapdata, self.cx, self.cy)
         pass
 
     def clear(self):
+        '''
+        '''
         pass
 
     def key_up(self):
+        '''
+        キー　アップ
+        '''
         self.item_init()
         if self.cy > 0:
             if self.mapdata.is_back_kuro(self.cy - 1, self. cx) == True:
@@ -200,14 +251,21 @@ class App:
         pass
 
     def key_down(self):
+        '''
+        キー　ダウン
+        '''
         self.item_init()
         if self.cy < 9:
             if self.mapdata.is_back_kuro(self.cy + 1, self. cx) == True:
                 self.cy = self.cy + 1
                 self.move_finish()
+
+        self.kazu = self.kazu + 1
         pass
 
     def key_left(self):
+        '''
+        '''
         self.item_init()
         if self.cx > 0:
             if self.mapdata.is_back_kuro(self.cy , self. cx - 1) == True:
@@ -216,6 +274,8 @@ class App:
         pass
 
     def key_right(self):
+        '''
+        '''
         self.item_init()
         if self.cx < 9:
             if self.mapdata.is_back_kuro(self.cy , self. cx + 1) == True:
@@ -224,9 +284,20 @@ class App:
         pass
 
     def item_init(self):
+        '''
+        アイテムの初期化
+
+        いろいろと初期化
+        '''
         pass
 
     def move_finish(self):
+        '''
+        移動の終わりの処理
+
+        マップデータの更新
+        クリアのカウントの更新
+        '''
 
         self.canvasdata.clear(self.writer, self.men)
         self.clear_switch = 1
