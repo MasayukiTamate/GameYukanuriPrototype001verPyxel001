@@ -60,7 +60,7 @@ class ImageObject:
         Parameters:
         path (str): 画像ファイルのパス
         """
-        self.img: pyxel.Image = pyxel.Image.from_image(filename=f"assets/images/{path}")
+        self.img: pyxel.Image = pyxel.Image.from_image(filename=f"{path}")
         self.width = self.img.width
         self.height = self.img.height
 

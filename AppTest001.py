@@ -2,12 +2,26 @@ import pyxel
 from CanvasDataVerPyxel import CanvasData
 from MapData import MapData
 import PyxelUniversalFont as puf
+from ImageObject import ImageObject
+
 
 MASU_SIZE = 32
 BAIRITU = 2
 SCREEN_WIDTH,SCREEN_HEIGHT = 1400,MASU_SIZE*10*BAIRITU
+FILENAMECHARACTER = "character00164x64.jpg"
 
-
+'''-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+クラス　キャンバスデータ
+　ペイント
+　パック
+　デリート
+　クリア
+　アイテム　エリア　初期化
+　アイテム　カウント　リペイント
+　ハケ
+　ロール
+　
+'''
 class CanvasData:
     def __init__(self, master):
         pyxel.load("GameYukanuriPrototype001verPyxel001.pyxres")
@@ -27,7 +41,7 @@ class CanvasData:
                     pyxel.blt(MASU_SIZE * x * BAIRITU +16, MASU_SIZE * y * BAIRITU+16, 0, MASU_SIZE * 0, MASU_SIZE * 1, MASU_SIZE, MASU_SIZE, 1, 0, BAIRITU)
                     pass
 
-        pyxel.blt(cx * MASU_SIZE *BAIRITU + 16,  cy * MASU_SIZE *BAIRITU + 16,0, MASU_SIZE * 0, MASU_SIZE * 2, MASU_SIZE, MASU_SIZE, 1, 0, BAIRITU)
+#        pyxel.blt(cx * MASU_SIZE *BAIRITU + 16,  cy * MASU_SIZE *BAIRITU + 16,0, MASU_SIZE * 0, MASU_SIZE * 2, MASU_SIZE, MASU_SIZE, 1, 0, BAIRITU)
         pass
 
     def pack(self):
@@ -83,9 +97,14 @@ class CanvasData:
             pass
         pass
 
+'''-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+本クラス
+
+'''
 class App:
     def __init__(self):
         pyxel.init(SCREEN_WIDTH,SCREEN_HEIGHT, title="床塗りげ～む")
+
         self.writer = puf.Writer("misaki_gothic.ttf")#フォントを指定
 
         self.cx = 0#変数　プレイヤーキャラクターの座標
@@ -94,6 +113,9 @@ class App:
         self.clear_switch = 0 #フラグ　クリア条件
         self.clearCount = 0
         self.count = 0
+        self.img = pyxel.Image(64, 64)
+        self.img.load(x=0, y=0, filename="gazou/character00164x64.jpg")
+        self.image_object = ImageObject(FILENAMECHARACTER, self.cx, self.cy)
 
 
         self.mapdata = MapData([
@@ -156,7 +178,10 @@ class App:
     def draw(self):
         pyxel.cls(7)
         self.repaint()
-        self.writer.draw(10 * MASU_SIZE * BAIRITU + 8,0, f"残りのマス：{self.nokori} {self.clearCount} {self.clearPoint}", 32, pyxel.COLOR_BLACK)
+        self.image_object.set_pos(self.cx * MASU_SIZE * BAIRITU,self.cy * MASU_SIZE * BAIRITU)
+        self.image_object.draw()
+#        pyxel.blt(0, 0, self.img, 0, 0, self.img.width, self.img.height)表示を試す
+        self.writer.draw(10 * MASU_SIZE * BAIRITU + 8,0, f"残りのマス：{self.nokori} {self.clearCount}　{self.count} {self.clearPoint}", 32, pyxel.COLOR_BLACK)
         pass
 
     def repaint(self):
