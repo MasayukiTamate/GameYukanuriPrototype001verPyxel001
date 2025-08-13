@@ -20,6 +20,9 @@ class CanvasData:
                 if mapdata.is_back_kuro(y, x) == True:
                     pyxel.rect(MASU_SIZE * x * BAIRITU, MASU_SIZE * y * BAIRITU, MASU_SIZE * BAIRITU, MASU_SIZE * BAIRITU, 5)
                     pass
+                if mapdata.is_back_orange(y, x) == True:
+                    pyxel.rect(MASU_SIZE * x * BAIRITU, MASU_SIZE * y * BAIRITU, MASU_SIZE * BAIRITU, MASU_SIZE * BAIRITU, 8)
+                    pass
                 if mapdata.is_back_renga(y, x) == True:
                     pyxel.blt(MASU_SIZE * x * BAIRITU +16, MASU_SIZE * y * BAIRITU+16, 0, MASU_SIZE * 0, MASU_SIZE * 1, MASU_SIZE, MASU_SIZE, 1, 0, BAIRITU)
                     pass
@@ -32,7 +35,7 @@ class CanvasData:
 
     def delete(self, s):
         pass
-    
+
     def clear(self, w, men):
         w.draw(400, 400, f"{men}面クリア！！！", 64, pyxel.COLOR_BLACK)
 
@@ -64,7 +67,7 @@ class CanvasData:
             self.create_rectangle(50*cx,50*(cy+1),50*(cx+1),50*(cy+2),c4,3,"item_waku")
             pass
         pass
-    
+
     def roll(self, c1, c2, c3, c4, mass_continued_num, cx, cy):
         if mass_continued_num[0] > 0:
             self.create_rectangle(50*(cx-mass_continued_num[0]),50*cy,50*cx,50*(cy+1),c1,5,"item_waku")
@@ -90,6 +93,7 @@ class App:
         self.men = 1 #変数　面数
         self.clear_switch = 0 #フラグ　クリア条件
         self.clearCount = 0
+        self.count = 0
 
 
         self.mapdata = MapData([
@@ -132,7 +136,7 @@ class App:
         pyxel.run(self.update, self.draw)
 
     def update(self):
-        
+
         if pyxel.btnp(pyxel.KEY_UP):
             self.key_up()
             pass
@@ -144,7 +148,7 @@ class App:
             pass
         elif pyxel.btnp(pyxel.KEY_RIGHT):
             self.key_right()
-            pass                  
+            pass
         else:
             pass
         pass
