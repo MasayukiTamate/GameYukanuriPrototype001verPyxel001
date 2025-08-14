@@ -9,9 +9,10 @@ MASU_SIZE = 32
 BAIRITU = 2
 SCREEN_WIDTH,SCREEN_HEIGHT = 1400,MASU_SIZE*10*BAIRITU
 FILENAMECHARACTER = "gazou/character00164x64.jpg"
-FILENAMEITEM1 = "gozou/hakeb64x64.jpg"
-FILENAMEITEM2 = "gazou/roll64x64.jpg"
-ZAHYOUITEM_X = 10 * MASU_SIZE * BAIRITU * 16
+FILENAMEITEM = "gazou/hakeb64x64.jpg", "gazou/roll64x64.jpg" , "gazou/bakudan64x64.jpg"
+
+ZAHYOUITEM_X = 10 * MASU_SIZE * BAIRITU + 64 // 2
+Y1 = 64
 '''-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 クラス　キャンバスデータ
 　ペイント
@@ -28,11 +29,15 @@ class CanvasData:
     def __init__(self, master):
         '''
         '''
+        self.writer = puf.Writer("misaki_gothic.ttf")#フォントを指定
         pyxel.load("GameYukanuriPrototype001verPyxel001.pyxres")
-        self.item1_image_object = ImageObject(FILENAMEITEM1, ZAHYOUITEM_X, 16)
-        self.item2_image_object = ImageObject(FILENAMEITEM2, ZAHYOUITEM_X + 64 + 16, 16)
-        self.item1_image_object.set_colkey(7)#透過パレット番号＝７
-        self.item2_image_object.set_colkey(7)#透過パレット番号＝７
+        self.item_image_object = [ImageObject(FILENAMEITEM[0], ZAHYOUITEM_X, MASU_SIZE * BAIRITU) , ImageObject(FILENAMEITEM[1], ZAHYOUITEM_X + 128 * BAIRITU, MASU_SIZE * BAIRITU) ,
+                                  ImageObject(FILENAMEITEM[2], ZAHYOUITEM_X, MASU_SIZE * BAIRITU * 3) 
+        ]
+        
+        for i in self.item_image_object:#透過パレット番号＝７を付与
+            i.set_colkey(7)
+
 #        directory = ""
         pass
 
@@ -86,9 +91,16 @@ class CanvasData:
             kuro_colorball_count):
         '''
         '''
-        self.item1_image_object.draw()
-        self.item2_image_object.draw()
 
+        for i in self.item_image_object:
+            i.draw()
+
+        y = 0
+        for i in range(2):
+            x = 0
+            for j in range(2):
+
+                self.writer.draw(ZAHYOUITEM_X + (5 * (MASU_SIZE * BAIRITU) ) * j + 64, (MASU_SIZE * BAIRITU  + 16) * i + Y1 + 32, f"　×　０", 32, pyxel.COLOR_BLACK)
         pass
     def hake(self, c1, c2, c3, c4, hake_switch, cx, cy):
         '''
@@ -221,6 +233,7 @@ class App:
 
         self.image_object.draw()
 
+        self.canvasdata.item_count_repaint(0,0,0,0,0,0,0,0)
 #        pyxel.blt(0, 0, self.img, 0, 0, self.img.width, self.img.height)表示を試す
         self.writer.draw(10 * MASU_SIZE * BAIRITU + 8,0, f"残りのマス：{self.nokori} {self.clearCount}　{self.count} {self.clearPoint} {self.kazu=}", 32, pyxel.COLOR_BLACK)
         pass
@@ -295,18 +308,20 @@ class App:
         '''
         移動の終わりの処理
 
+        床を塗りつぶす処理
         マップデータの更新
         クリアのカウントの更新
         '''
 
-        self.canvasdata.clear(self.writer, self.men)
+        self.canvasdata.clear(self.writer, self.men)#クリア条件を達したかどうかの確認メゾット
         self.clear_switch = 1
 
-        self.mapdata.back_to_orange(self.cy, self.cx)
-        self.mapdata.delete_item(self.cy, self.cx)
-        self.count = self.count + 1
+        self.mapdata.back_to_orange(self.cy, self.cx)#移動したので床を塗りつぶす
+        self.mapdata.delete_item(self.cy, self.cx)#アイテムを取得処理
+        self.count = self.count + 1#床を塗ったのでカウントの増加
 #        self.repaint()
 #        self.item_count_repaint()
 #        self.clear()
         pass
+
 App()
