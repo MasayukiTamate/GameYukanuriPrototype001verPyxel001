@@ -31,8 +31,8 @@ class CanvasData:
         '''
         self.writer = puf.Writer("misaki_gothic.ttf")#フォントを指定
         pyxel.load("GameYukanuriPrototype001verPyxel001.pyxres")
-        self.item_image_object = [ImageObject(FILENAMEITEM[0], ZAHYOUITEM_X, MASU_SIZE * BAIRITU) , ImageObject(FILENAMEITEM[1], ZAHYOUITEM_X + 128 * BAIRITU, MASU_SIZE * BAIRITU) ,
-                                  ImageObject(FILENAMEITEM[2], ZAHYOUITEM_X, MASU_SIZE * BAIRITU * 3) 
+        self.item_image_object = [ImageObject(FILENAMEITEM[0], ZAHYOUITEM_X, MASU_SIZE * BAIRITU) , ImageObject(FILENAMEITEM[1], ZAHYOUITEM_X + 128 * BAIRITU + 64, MASU_SIZE * BAIRITU) ,
+                                  ImageObject(FILENAMEITEM[2], ZAHYOUITEM_X, MASU_SIZE * BAIRITU * 2 +16) 
         ]
         
         for i in self.item_image_object:#透過パレット番号＝７を付与
@@ -300,7 +300,7 @@ class App:
         '''
         アイテムの初期化
 
-        いろいろと初期化
+        いろいろとなんかを初期化
         '''
         pass
 
