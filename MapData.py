@@ -2,6 +2,7 @@ class MapData:
     def __init__(self, back, item):
         self.back = back
         self.item = item
+        self.count = 0
     
     def get_item(self, y, x):
         return self.item[y][x]
@@ -31,3 +32,14 @@ class MapData:
 
     def delete_item(self, y, x):
         self.item[y][x] = 0
+    
+    def count_floor(self):
+        count = 0
+        for mm in self.back:
+            for m in mm:
+                
+                if m == 0:
+                    print(m)
+                    count = count + 1
+        self.count = count
+        return self.count

@@ -32,7 +32,10 @@ class Application(tk.Frame):
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0]
         ])
+        self.count = 100 - self.mapdata.count_floor()
 
+
+        print(self.count)
         self.controlball_area =[
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0],
@@ -54,7 +57,7 @@ class Application(tk.Frame):
         self.cx = 0
         self.cy = 4
 
-        self.count = 27
+
         self.men = 1
         self.clear_switch = 0
 
@@ -733,7 +736,7 @@ class Application(tk.Frame):
         ])
             self.cx = 0
             self.cy = 4
-            self.count = 27
+            self.count = 26
             self.ot.set("1")
             self.repaint()
         if self.men == 2:
