@@ -5,7 +5,7 @@ class CanvasData:
     def __init__(self, master):
         self.canvas = tk.Canvas(master,width=700+5,height=500+5,bg="skyblue")
         directory = "./gazou/"
-        self.jiki = tk.PhotoImage(file=directory + "character00164x64.jpg")    
+        self.jiki = tk.PhotoImage(file=directory + "character00150x50.png")    
     def paint(self, mapdata, cx, cy):
         for x in range(10):
             for y in range(10):
