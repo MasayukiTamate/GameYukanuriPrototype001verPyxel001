@@ -5,18 +5,23 @@ class CanvasData:
     def __init__(self, master):
         self.canvas = tk.Canvas(master,width=700+5,height=500+5,bg="skyblue")
         directory = "./gazou/"
-        self.jiki = tk.PhotoImage(file=directory + "character00150x50.png")    
+        self.jiki = tk.PhotoImage(file=directory + "character00150x50.png")
+        self.blickblock = tk.PhotoImage(file=directory + "brickblock50x50.png")
+    
     def paint(self, mapdata, cx, cy):
         for x in range(10):
             for y in range(10):
                 if mapdata.is_back_kuro(y, x) == True:
                     
-                    self.canvas.create_rectangle(50*x+5,50*y+5,50*(x+1)+5,50*(y+1)+5,fill="black",outline="brown",width=10,tag="mass_char_item")
+                    self.canvas.create_rectangle(50*x+10,50*y+10,50*(x+1),50*(y+1),fill="black",width=10,tag="mass_char_item")
+                    pass
                 elif mapdata.is_back_orange(y, x) == True:
                     
-                    self.canvas.create_rectangle(50*x+5,50*y+5,50*(x+1)+5,50*(y+1)+5,fill="orange",outline="brown",width=10,tag="mass_char_item")
+                    self.canvas.create_rectangle(50*x+10,50*y+10,50*(x+1),50*(y+1),fill="orange",width=10,tag="mass_char_item")
+                    pass
                 elif mapdata.is_back_renga(y, x) == True:
-                    self.canvas.create_rectangle(50*x+5,50*y+5,50*(x+1)+5,50*(y+1)+5,fill="brown",outline="brown",width=10,tag="mass_char_item")
+
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.blickblock,tag="mass_char_item")
                     
                 if mapdata.get_item(y, x) == 1:
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="1",fill="white", tag="mass_char_item")

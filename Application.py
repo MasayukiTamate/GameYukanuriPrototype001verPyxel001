@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from CanvasData import CanvasData
 from MapData import MapData
 
@@ -6,8 +7,12 @@ from MapData import MapData
 
 class Application(tk.Frame):
     def __init__(self,master):
+
         super().__init__(master)
-        master.title("一筆書き君")
+        master.title("床を塗りつぶしたら終わりのゲーム")
+
+
+        
 
         self.mapdata = MapData([
             [0,0,0,0,0,0,0,0,0,0],
@@ -94,6 +99,12 @@ class Application(tk.Frame):
         self.ot.set("1")
         self.opt = tk.OptionMenu(master,self.ot,*self.OPTIONLIST,command= self.men_select)
         self.opt.place(x=530,y=450)
+
+        self.canvass = tk.Canvas(master,width=700+5,height=50,bg="lightgray")
+
+        self.canvass.pack()
+        self.canvass.create_text(100,10,text="操作方法：矢印キーで移動、1～8キーでアイテム選択、Enterキーで使用")
+#        messagebox.showinfo("操作方法","")     
 
 
     def repaint(self):
