@@ -259,6 +259,10 @@ class Application(tk.Frame):
                         )
 
     def key_1(self):
+        '''
+        オレンジはけ
+        
+        '''
         self.item_init()
         if self.orange_hake_count > 0:
             self.mode = 1
@@ -290,6 +294,9 @@ class Application(tk.Frame):
                 self.imuki = 4
                 self.hake("yellow","yellow","yellow","red")
     def key_2(self):
+        '''
+        くろはけ
+        '''
         self.item_init()
         if self.kuro_hake_count > 0:
             self.mode = 1
@@ -320,6 +327,9 @@ class Application(tk.Frame):
                 self.imuki = 4
                 self.hake("yellow","yellow","yellow","red")
     def key_3(self):
+        '''
+        オレンジローラー
+        '''
         self.item_init()
         if self.orange_roller_count > 0:
             self.item = 3
@@ -385,6 +395,9 @@ class Application(tk.Frame):
             else:
                 self.item_init()
     def key_4(self):
+        '''
+        くろローラー
+        '''
         self.item_init()
         if self.kuro_roller_count > 0:
             self.item = 4
@@ -450,6 +463,9 @@ class Application(tk.Frame):
             else:
                 self.item_init()
     def key_5(self):
+        '''
+        小さいハンマー
+        '''
         self.item_init()
         if self.small_hammer_count > 0:
             self.item = 5
@@ -457,6 +473,9 @@ class Application(tk.Frame):
             self.canvasdata.create_rectangle(520,210,580,275,"brown",3,"item_icon_waku")
             self.hammer()
     def key_6(self):
+        '''
+        でかいハンマー
+        '''
         self.item_init()
         if self.big_hammer_count > 0:
             self.mode = 1
@@ -465,6 +484,9 @@ class Application(tk.Frame):
             self.hammer()
             self.hammer2()
     def key_7(self):
+        '''
+        おれんじカラーボール
+        '''
         self.item_init()
         if self.orange_colorball_count > 0:
             self.mode = 1
@@ -481,6 +503,9 @@ class Application(tk.Frame):
                     self.controlball_area[y][x] = 1
             self.canvasdata.create_rectangle(50*self.cx,50*self.cy,50*(self.cx+1),50*(self.cy+1),"red",5,"item_waku")
     def key_8(self):
+        '''
+        くろカラーボール
+        '''
         self.item_init()
         if self.kuro_colorball_count > 0:
             self.item = 8
