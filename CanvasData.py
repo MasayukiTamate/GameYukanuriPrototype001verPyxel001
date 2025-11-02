@@ -7,13 +7,20 @@ class CanvasData:
         directory = "./gazou/"
         self.jiki = tk.PhotoImage(file=directory + "character00150x50.png")
         self.blickblock = tk.PhotoImage(file=directory + "brickblock50x50.png")
-    
+        self.bakdan = tk.PhotoImage(file=directory + "bakudan50x50.png")
+        self.hakeCg = tk.PhotoImage(file=directory + "hake50x50.png")
+        self.hake2Cg = tk.PhotoImage(file=directory + "hakeb50x50.png")
+        self.rollCg = tk.PhotoImage(file=directory + "roll50x50.png")
+        self.floorCg = tk.PhotoImage(file=directory + "floor50x50.png")
+
+
     def paint(self, mapdata, cx, cy):
         for x in range(10):
             for y in range(10):
                 if mapdata.is_back_kuro(y, x) == True:
                     
                     self.canvas.create_rectangle(50*x+10,50*y+10,50*(x+1),50*(y+1),fill="black",width=10,tag="mass_char_item")
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.floorCg,tag="mass_char_item")
                     pass
                 elif mapdata.is_back_orange(y, x) == True:
                     
@@ -24,20 +31,27 @@ class CanvasData:
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.blickblock,tag="mass_char_item")
                     
                 if mapdata.get_item(y, x) == 1:
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="1",fill="white", tag="mass_char_item")
                 if mapdata.get_item(y, x) == 2:
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="2",tag="mass_char_item")
                 if mapdata.get_item(y, x) == 3:
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="3",tag="mass_char_item")
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                 if mapdata.get_item(y, x) == 4:
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="4",tag="mass_char_item")
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                 if mapdata.get_item(y, x) == 5:
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="5",tag="mass_char_item")
                 if mapdata.get_item(y, x) == 6:
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="6",tag="mass_char_item")
                 if mapdata.get_item(y, x) == 7:
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="7",tag="mass_char_item")
                 if mapdata.get_item(y, x) == 8:
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="8",tag="mass_char_item")
 
         self.canvas.create_image(cx * 50 + 25 + 5, cy * 50 + 25 + 5, image=self.jiki, tag="mass_char_item")
@@ -56,7 +70,11 @@ class CanvasData:
             kuro_roller_count, small_hammer_count,
             big_hammer_count, orange_colorball_count,
             kuro_colorball_count):
+        '''
+        アイテムリスト　→に表示
+        '''
         self.n = 30
+        self.canvas.create_image(555,50,image=self.hakeCg,tag="mass_char_item")
         self.canvas.create_rectangle(555,50,555+self.n,50+self.n)
         self.canvas.create_text(555,95,text=orange_hake_count,tag="item_count")
         self.canvas.create_rectangle(655,50,655+self.n,50+self.n)

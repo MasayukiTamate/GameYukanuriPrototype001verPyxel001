@@ -12,8 +12,6 @@ class Application(tk.Frame):
         master.title("床を塗りつぶしたら終わりのゲーム")
 
 
-        
-
         self.mapdata = MapData([
             [0,0,0,0,0,0,0,0,0,0],
             [0,2,2,2,0,0,2,2,2,0],
@@ -104,7 +102,7 @@ class Application(tk.Frame):
 
         self.canvass.pack()
         self.canvass.create_text(100,10,text="操作方法：矢印キーで移動、1～8キーでアイテム選択、Enterキーで使用")
-#        messagebox.showinfo("操作方法","")     
+
 
 
     def repaint(self):
@@ -506,6 +504,8 @@ class Application(tk.Frame):
         '''
         くろカラーボール
         '''
+
+
         self.item_init()
         if self.kuro_colorball_count > 0:
             self.item = 8
@@ -521,6 +521,7 @@ class Application(tk.Frame):
                     self.canvasdata.create_rectangle(50*x,50*y,50*(x+1),50*(y+1),"yellow",5,"item_waku")
                     self.controlball_area[y][x] = 1
             self.canvasdata.create_rectangle(50*self.cx,50*self.cy,50*(self.cx+1),50*(self.cy+1),"red",5,"item_waku")
+    
 
 
     def key_return(self):
