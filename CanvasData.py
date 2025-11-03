@@ -12,7 +12,7 @@ class CanvasData:
         self.hake2Cg = tk.PhotoImage(file=directory + "hakeb50x50.png")
         self.rollCg = tk.PhotoImage(file=directory + "roll50x50.png")
         self.floorCg = tk.PhotoImage(file=directory + "floor50x50.png")
-
+        self.floorPaintCg = tk.PhotoImage(file=directory + "floorPaint50x50.png")
 
     def paint(self, mapdata, cx, cy):
         for x in range(10):
@@ -25,6 +25,7 @@ class CanvasData:
                 elif mapdata.is_back_orange(y, x) == True:
                     
                     self.canvas.create_rectangle(50*x+10,50*y+10,50*(x+1),50*(y+1),fill="orange",width=10,tag="mass_char_item")
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.floorPaintCg,tag="mass_char_item")
                     pass
                 elif mapdata.is_back_renga(y, x) == True:
 
