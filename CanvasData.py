@@ -75,22 +75,22 @@ class CanvasData:
         アイテムリスト　→に表示
         '''
         self.n = 30
-        self.canvas.create_image(555,50,image=self.hakeCg,tag="mass_char_item")
-        self.canvas.create_rectangle(555,50,555+self.n,50+self.n)
+        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
+#        self.canvas.create_rectangle(555,50,555+self.n,50+self.n)
         self.canvas.create_text(555,95,text=orange_hake_count,tag="item_count")
-        self.canvas.create_rectangle(655,50,655+self.n,50+self.n)
+#        self.canvas.create_rectangle(655,50,655+self.n,50+self.n)
         self.canvas.create_text(655,95,text=kuro_hake_count,tag="item_count")
-        self.canvas.create_rectangle(555,150,555+self.n,150+self.n)
+#        self.canvas.create_rectangle(555,150,555+self.n,150+self.n)
         self.canvas.create_text(555,195,text=orange_roller_count,tag="item_count")
-        self.canvas.create_rectangle(655,150,655+self.n,150+self.n)
+#        self.canvas.create_rectangle(655,150,655+self.n,150+self.n)
         self.canvas.create_text(655,195,text=kuro_roller_count,tag="item_count")
-        self.canvas.create_rectangle(555,250,555+self.n,250+self.n)
+#        self.canvas.create_rectangle(555,250,555+self.n,250+self.n)
         self.canvas.create_text(555,295,text=small_hammer_count,tag="item_count")
-        self.canvas.create_rectangle(655,250,655+self.n,250+self.n)
+#        self.canvas.create_rectangle(655,250,655+self.n,250+self.n)
         self.canvas.create_text(655,295,text=big_hammer_count,tag="item_count")
-        self.canvas.create_rectangle(555,350,555+self.n,350+self.n)
+#        self.canvas.create_rectangle(555,350,555+self.n,350+self.n)
         self.canvas.create_text(555,395,text=orange_colorball_count,tag="item_count")
-        self.canvas.create_rectangle(655,350,655+self.n,350+self.n)
+#        self.canvas.create_rectangle(655,350,655+self.n,350+self.n)
         self.canvas.create_text(655,395,text=kuro_colorball_count,tag="item_count")
     
     def item_count_repaint(self, orange_hake_count,
