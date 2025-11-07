@@ -1,11 +1,13 @@
 import tkinter as tk
 
 
+
 class CanvasData:
     def __init__(self, master):
-        self.canvas = tk.Canvas(master,width=700+5,height=500+5,bg="skyblue")
+        self.canvas = tk.Canvas(master,width=700+5,height=500+5,bg="white")
         directory = "./gazou/"
-        self.jiki = tk.PhotoImage(file=directory + "character00150x50.png")
+#        self.jiki = tk.PhotoImage(file=directory + "character00150x50.png")
+        self.jiki = tk.PhotoImage(file=directory + "playerC50x50.png")
         self.blickblock = tk.PhotoImage(file=directory + "brickblock50x50.png")
         self.bakdan = tk.PhotoImage(file=directory + "bakudan50x50.png")
         self.hakeCg = tk.PhotoImage(file=directory + "hake50x50.png")
@@ -78,18 +80,25 @@ class CanvasData:
         self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,50,555+self.n,50+self.n)
         self.canvas.create_text(555,95,text=orange_hake_count,tag="item_count")
+        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,50,655+self.n,50+self.n)
         self.canvas.create_text(655,95,text=kuro_hake_count,tag="item_count")
+        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,150,555+self.n,150+self.n)
         self.canvas.create_text(555,195,text=orange_roller_count,tag="item_count")
+        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,150,655+self.n,150+self.n)
         self.canvas.create_text(655,195,text=kuro_roller_count,tag="item_count")
+        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,250,555+self.n,250+self.n)
         self.canvas.create_text(555,295,text=small_hammer_count,tag="item_count")
+        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,250,655+self.n,250+self.n)
         self.canvas.create_text(655,295,text=big_hammer_count,tag="item_count")
+        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,350,555+self.n,350+self.n)
         self.canvas.create_text(555,395,text=orange_colorball_count,tag="item_count")
+        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,350,655+self.n,350+self.n)
         self.canvas.create_text(655,395,text=kuro_colorball_count,tag="item_count")
     

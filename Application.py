@@ -9,7 +9,7 @@ class Application(tk.Frame):
     def __init__(self,master):
 
         super().__init__(master)
-        master.title("床を塗りつぶしたら終わりのゲーム")
+        master.title("床を塗るゲーム")
 
 
         self.mapdata = MapData([
