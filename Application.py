@@ -38,19 +38,11 @@ class Application(tk.Frame):
         self.count = 100 - self.mapdata.count_floor()
 
 
-        print(self.count)
-        self.controlball_area =[
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0]
-        ]
+
+        self.controlball_area = [[0]*10 for _ in range(10)]
+
+
+
         self.controlball_switch = 0
         self.COLORBALL_AREA_Y = [-3,-2,-2,-2,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,1,1,1,1,1,2,2,2,3]
         self.COLORBALL_AREA_X = [0,-1,0,1,-2,-1,0,1,2,-3,-2,-1,0,1,2,3,-2,-1,0,1,2,-1,0,1,0]
@@ -108,11 +100,13 @@ class Application(tk.Frame):
     def repaint(self):
         self.canvasdata.delete("mass_char_item")
         self.canvasdata.paint(self.mapdata, self.cx, self.cy)
+
     def clear(self):
-        print(self.count)
+
         if self.count == 100:
             self.canvasdata.clear(self.men)
             self.clear_switch = 1
+
 #移動系メゾット
     def key_up(self):
         self.item_init()
@@ -892,9 +886,9 @@ class Application(tk.Frame):
         self.hake_switch = [0] *4
         self.mass_continued_num = [0] *4
         if self.controlball_switch == 1:
-            self.controlball_area = [[0]*10 for j in range(10)]
+            self.controlball_area = [[0]*10 for _ in range(10)]
             self.controlball_switch = 0
-            print(self.controlball_area)
+
 
 root = tk.Tk()
 app = Application(master=root)

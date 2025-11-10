@@ -1,6 +1,24 @@
 import tkinter as tk
 
 
+ITEM_LIST_X1 = 50 + 500
+ITEM_LIST_X2 = 100 + 50 + 500
+ITEM_LIST_Y1 = 100
+ITEM_LIST_Y2 = 200
+ITEM_LIST_Y3 = 300
+ITEM_LIST_Y4 = 400
+
+LIST_TEXT_X1 = 30 + 500
+LIST_TEXT_X2 = 80 + 500
+LIST_ITEM_Y1 = 50
+LIST_TEXT_Y1 = 50
+LIST_ITEM_Y2 = 150
+LIST_TEXT_Y2 = 150
+LIST_ITEM_Y3 = 250
+LIST_TEXT_Y3 = 250
+LIST_ITEM_Y4 = 350
+LIST_TEXT_Y4 = 350
+
 
 class CanvasData:
     def __init__(self, master):
@@ -77,30 +95,38 @@ class CanvasData:
         アイテムリスト　→に表示
         '''
         self.n = 30
-        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
+#       アイテム１はオレンジはけ
+        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y1,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,50,555+self.n,50+self.n)
-        self.canvas.create_text(555,95,text=orange_hake_count,tag="item_count")
-        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
+        self.canvas.create_text(ITEM_LIST_X1,95,text=orange_hake_count,tag="item_count")
+#アイテム２は黒はけ
+        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y1,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,50,655+self.n,50+self.n)
-        self.canvas.create_text(655,95,text=kuro_hake_count,tag="item_count")
-        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
+        self.canvas.create_text(ITEM_LIST_X1,95,text=kuro_hake_count,tag="item_count")
+#アイテム３はオレンジローラー
+        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y2,image=self.rollCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,150,555+self.n,150+self.n)
-        self.canvas.create_text(555,195,text=orange_roller_count,tag="item_count")
-        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
+        self.canvas.create_text(200,195,text=orange_roller_count,tag="item_count")
+#アイテム４は黒ローラー
+        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y2,image=self.rollCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,150,655+self.n,150+self.n)
-        self.canvas.create_text(655,195,text=kuro_roller_count,tag="item_count")
-        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
+        self.canvas.create_text(ITEM_LIST_X1,195,text=kuro_roller_count,tag="item_count")
+#アイテム５は小さいハンマー
+        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y3,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,250,555+self.n,250+self.n)
-        self.canvas.create_text(555,295,text=small_hammer_count,tag="item_count")
-        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
+        self.canvas.create_text(ITEM_LIST_X2,295,text=small_hammer_count,tag="item_count")
+#アイテム６はでかいハンマー
+        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y3,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,250,655+self.n,250+self.n)
-        self.canvas.create_text(655,295,text=big_hammer_count,tag="item_count")
-        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
+        self.canvas.create_text(ITEM_LIST_X1,295,text=big_hammer_count,tag="item_count")
+#アイテム７はオレンジカラーボール
+        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y4,image=self.bakdan,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,350,555+self.n,350+self.n)
-        self.canvas.create_text(555,395,text=orange_colorball_count,tag="item_count")
-        self.canvas.create_image(555,50,image=self.hakeCg,tag="list_mass_char_item")
+        self.canvas.create_text(ITEM_LIST_X1,395,text=orange_colorball_count,tag="item_count")
+#アイテム８は黒カラーボール
+        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y4,image=self.bakdan,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,350,655+self.n,350+self.n)
-        self.canvas.create_text(655,395,text=kuro_colorball_count,tag="item_count")
+        self.canvas.create_text(ITEM_LIST_X2,395,text=kuro_colorball_count,tag="item_count")
     
     def item_count_repaint(self, orange_hake_count,
             kuro_hake_count, orange_roller_count,
