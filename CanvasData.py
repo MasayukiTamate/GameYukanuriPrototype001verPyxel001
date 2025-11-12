@@ -1,5 +1,5 @@
 import tkinter as tk
-
+from PIL import Image, ImageTk
 
 ITEM_LIST_X1 = 50 + 500
 ITEM_LIST_X2 = 100 + 50 + 500
@@ -8,31 +8,44 @@ ITEM_LIST_Y2 = 200
 ITEM_LIST_Y3 = 300
 ITEM_LIST_Y4 = 400
 
-LIST_TEXT_X1 = 30 + 500
-LIST_TEXT_X2 = 80 + 500
+LIST_TEXT_X1 = 0
+LIST_TEXT_X2 = 0
 LIST_ITEM_Y1 = 50
-LIST_TEXT_Y1 = 50
+LIST_TEXT_Y1 = 100 - 10
 LIST_ITEM_Y2 = 150
-LIST_TEXT_Y2 = 150
+LIST_TEXT_Y2 = 200 - 10
 LIST_ITEM_Y3 = 250
-LIST_TEXT_Y3 = 250
+LIST_TEXT_Y3 = 300 - 10
 LIST_ITEM_Y4 = 350
-LIST_TEXT_Y4 = 350
+LIST_TEXT_Y4 = 400 - 10
 
 
 class CanvasData:
     def __init__(self, master):
-        self.canvas = tk.Canvas(master,width=700+5,height=500+5,bg="white")
+        self.canvas = tk.Canvas(master, width=700+5, height=500+5, bg="white")
         directory = "./gazou/"
-#        self.jiki = tk.PhotoImage(file=directory + "character00150x50.png")
-        self.jiki = tk.PhotoImage(file=directory + "playerC50x50.png")
-        self.blickblock = tk.PhotoImage(file=directory + "brickblock50x50.png")
-        self.bakdan = tk.PhotoImage(file=directory + "bakudan50x50.png")
-        self.hakeCg = tk.PhotoImage(file=directory + "hake50x50.png")
-        self.hake2Cg = tk.PhotoImage(file=directory + "hakeb50x50.png")
-        self.rollCg = tk.PhotoImage(file=directory + "roll50x50.png")
-        self.floorCg = tk.PhotoImage(file=directory + "floor50x50.png")
-        self.floorPaintCg = tk.PhotoImage(file=directory + "floorPaint50x50.png")
+        # ファイルパスを保持して、Pillow に渡すときは path を使う
+        self.jiki_path = directory + "playerC50x50.png"
+        self.blickblock_path = directory + "brickblock50x50.png"
+        self.bakdan_path = directory + "bakudan50x50.png"
+        self.hake_path = directory + "hake50x50.png"
+        self.hake2_path = directory + "hakeb50x50.png"
+        self.hummar_path = directory + "hummar50x50.png"
+        self.roll_path = directory + "roll50x50.png"
+        self.floor_path = directory + "floor50x50.png"
+        self.floorPaint_path = directory + "floorPaint50x50.png"
+        # tkinter 用の PhotoImage（通常描画）も保持しておく（GC対策）
+        self.jiki = tk.PhotoImage(file=self.jiki_path)
+        self.blickblock = tk.PhotoImage(file=self.blickblock_path)
+        self.bakdan = tk.PhotoImage(file=self.bakdan_path)
+        self.hakeCg = tk.PhotoImage(file=self.hake_path)
+        self.hake2Cg = tk.PhotoImage(file=self.hake2_path)
+        self.hummarCg = tk.PhotoImage(file=self.hummar_path)
+        self.rollCg = tk.PhotoImage(file=self.roll_path)
+        self.floorCg = tk.PhotoImage(file=self.floor_path)
+        self.floorPaintCg = tk.PhotoImage(file=self.floorPaint_path)
+        # Pillowで作った ImageTk を保持するための参照リスト（GC対策）
+        self._image_refs = []
 
     def paint(self, mapdata, cx, cy):
         for x in range(10):
@@ -75,7 +88,9 @@ class CanvasData:
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="8",tag="mass_char_item")
 
-        self.canvas.create_image(cx * 50 + 25 + 5, cy * 50 + 25 + 5, image=self.jiki, tag="mass_char_item")
+#        self.canvas.create_image(cx * 50 + 25 + 5, cy * 50 + 25 + 5, image=self.jiki, tag="mass_char_item")
+        # PhotoImage（self.jiki）を直接渡すと PIL が失敗するため、ファイルパス（self.jiki_path）を渡す
+        self.create_image_with_alpha(50*cx, 50*cy, path=self.jiki_path, alpha=150, anchor="nw", tags=("overlay",))
     
     def pack(self):
         self.canvas.pack()
@@ -98,35 +113,35 @@ class CanvasData:
 #       アイテム１はオレンジはけ
         self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y1,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,50,555+self.n,50+self.n)
-        self.canvas.create_text(ITEM_LIST_X1,95,text=orange_hake_count,tag="item_count")
+        self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y1,text=orange_hake_count,tag="item_count")
 #アイテム２は黒はけ
         self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y1,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,50,655+self.n,50+self.n)
-        self.canvas.create_text(ITEM_LIST_X1,95,text=kuro_hake_count,tag="item_count")
+        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y1,text=kuro_hake_count,tag="item_count")
 #アイテム３はオレンジローラー
         self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y2,image=self.rollCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,150,555+self.n,150+self.n)
-        self.canvas.create_text(200,195,text=orange_roller_count,tag="item_count")
+        self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y2,text=orange_roller_count,tag="item_count")
 #アイテム４は黒ローラー
         self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y2,image=self.rollCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,150,655+self.n,150+self.n)
-        self.canvas.create_text(ITEM_LIST_X1,195,text=kuro_roller_count,tag="item_count")
+        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y2,text=kuro_roller_count,tag="item_count")
 #アイテム５は小さいハンマー
-        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y3,image=self.hakeCg,tag="list_mass_char_item")
+        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y3,image=self.hummarCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,250,555+self.n,250+self.n)
-        self.canvas.create_text(ITEM_LIST_X2,295,text=small_hammer_count,tag="item_count")
+        self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y3,text=small_hammer_count,tag="item_count")
 #アイテム６はでかいハンマー
-        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y3,image=self.hakeCg,tag="list_mass_char_item")
+        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y3,image=self.hummarCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,250,655+self.n,250+self.n)
-        self.canvas.create_text(ITEM_LIST_X1,295,text=big_hammer_count,tag="item_count")
+        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y3,text=big_hammer_count,tag="item_count")
 #アイテム７はオレンジカラーボール
-        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y4,image=self.bakdan,tag="list_mass_char_item")
-#        self.canvas.create_rectangle(555,350,555+self.n,350+self.n)
-        self.canvas.create_text(ITEM_LIST_X1,395,text=orange_colorball_count,tag="item_count")
-#アイテム８は黒カラーボール
         self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y4,image=self.bakdan,tag="list_mass_char_item")
+#        self.canvas.create_rectangle(555,350,555+self.n,350+self.n)
+        self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y4,text=orange_colorball_count,tag="item_count")
+#アイテム８は黒カラーボール
+        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y4,image=self.bakdan,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,350,655+self.n,350+self.n)
-        self.canvas.create_text(ITEM_LIST_X2,395,text=kuro_colorball_count,tag="item_count")
+        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y4,text=kuro_colorball_count,tag="item_count")
     
     def item_count_repaint(self, orange_hake_count,
             kuro_hake_count, orange_roller_count,
@@ -166,3 +181,31 @@ class CanvasData:
             self.create_rectangle(50*(cx+1),50*cy,50*(cx+mass_continued_num[2]+1),50*(cy+1),c3,5,"item_waku")
         if mass_continued_num[3] > 0:
             self.create_rectangle(50*cx,50*(cy+1),50*(cx+1),50*(cy + mass_continued_num[3]+1),c4,5,"item_waku")
+
+    def load_image_with_alpha(self, path, alpha=200):
+        """
+        path: 画像ファイルパス（RGBA PNG 推奨）
+        alpha: 0(完全透明)~255(不透明) のアルファ値（既存アルファに乗算）
+        戻り値: ImageTk.PhotoImage
+        """
+        img = Image.open(path).convert("RGBA")
+        if alpha < 255:
+            r, g, b, a = img.split()
+            # 既存アルファに乗算して透過度を調整
+            a = a.point(lambda p: int(p * (alpha / 255.0)))
+            img = Image.merge("RGBA", (r, g, b, a))
+        tk_img = ImageTk.PhotoImage(img)
+        # GCされないように参照を保持
+        if not hasattr(self, "_image_refs"):
+            self._image_refs = []
+        self._image_refs.append(tk_img)
+        return tk_img
+
+    def create_image_with_alpha(self, x, y, path, alpha=200, **create_kwargs):
+        """
+        Canvas.create_image ラッパー（self.canvas を使用）。
+        path はファイルパス（str）を渡してください。
+        """
+        tk_img = self.load_image_with_alpha(path, alpha)
+        # Canvas の create_image を使う（self.create_image は定義されていない）
+        return self.canvas.create_image(x + 5, y + 5, image=tk_img, **create_kwargs)
