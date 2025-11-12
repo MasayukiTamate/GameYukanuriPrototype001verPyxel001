@@ -26,10 +26,10 @@ class Application(tk.Frame):
         ],[
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0],
-            [0,0,1,0,0,0,0,0,0,0],
+            [0,0,1,0,0,0,0,3,0,0],
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,5,0],
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0],
@@ -93,7 +93,7 @@ class Application(tk.Frame):
         self.canvass = tk.Canvas(master,width=700+5,height=50,bg="lightgray")
 
         self.canvass.pack()
-        self.canvass.create_text(100,10,text="操作方法：矢印キーで移動、1～8キーでアイテム選択、Enterキーで使用")
+        self.canvass.create_text(100,10,text="操作方法：矢印キーで移動、1～8キーでアイテム選択、「W」「A」「D」「S]でカーソルを選択後、Enterキーで使用")
 
 
 
@@ -672,13 +672,16 @@ class Application(tk.Frame):
             self.key_left()
         elif key == "1" and self.clear_switch == 0:
             self.key_1()
-        elif key == "2" and self.clear_switch == 0:
+#        elif key == "2" and self.clear_switch == 0:
+        elif key == "5" and self.clear_switch == 0:
             self.key_2()
-        elif key == "3" and self.clear_switch == 0:
+#        elif key == "3" and self.clear_switch == 0:
+        elif key == "2" and self.clear_switch == 0:
             self.key_3()
         elif key == "4" and self.clear_switch == 0:
             self.key_4()
-        elif key == "5" and self.clear_switch == 0:
+#        elif key == "5" and self.clear_switch == 0:
+        elif key == "3" and self.clear_switch == 0:
             self.key_5()
         elif key == "6" and self.clear_switch == 0:
             self.key_6()

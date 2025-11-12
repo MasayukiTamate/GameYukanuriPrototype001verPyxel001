@@ -63,21 +63,34 @@ class CanvasData:
                 elif mapdata.is_back_renga(y, x) == True:
 
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.blickblock,tag="mass_char_item")
-                    
+                
+
+                #はけ
                 if mapdata.get_item(y, x) == 1:
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="1",fill="white", tag="mass_char_item")
+
+                '''
                 if mapdata.get_item(y, x) == 2:
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="2",tag="mass_char_item")
+                '''
+
+                #ローラー
                 if mapdata.get_item(y, x) == 3:
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="3",tag="mass_char_item")
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
+                '''
                 if mapdata.get_item(y, x) == 4:
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="4",tag="mass_char_item")
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
+                '''
+
+                #ハンマー
                 if mapdata.get_item(y, x) == 5:
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="5",tag="mass_char_item")
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
+                '''
                 if mapdata.get_item(y, x) == 6:
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="6",tag="mass_char_item")
@@ -87,9 +100,8 @@ class CanvasData:
                 if mapdata.get_item(y, x) == 8:
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="8",tag="mass_char_item")
-
-#        self.canvas.create_image(cx * 50 + 25 + 5, cy * 50 + 25 + 5, image=self.jiki, tag="mass_char_item")
-        # PhotoImage（self.jiki）を直接渡すと PIL が失敗するため、ファイルパス（self.jiki_path）を渡す
+                '''
+                
         self.create_image_with_alpha(50*cx, 50*cy, path=self.jiki_path, alpha=150, anchor="nw", tags=("overlay",))
     
     def pack(self):
@@ -115,33 +127,33 @@ class CanvasData:
 #        self.canvas.create_rectangle(555,50,555+self.n,50+self.n)
         self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y1,text=orange_hake_count,tag="item_count")
 #アイテム２は黒はけ
-        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y1,image=self.hakeCg,tag="list_mass_char_item")
+#        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y1,image=self.hakeCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,50,655+self.n,50+self.n)
-        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y1,text=kuro_hake_count,tag="item_count")
+#        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y1,text=kuro_hake_count,tag="item_count")
 #アイテム３はオレンジローラー
         self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y2,image=self.rollCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,150,555+self.n,150+self.n)
         self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y2,text=orange_roller_count,tag="item_count")
 #アイテム４は黒ローラー
-        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y2,image=self.rollCg,tag="list_mass_char_item")
+#        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y2,image=self.rollCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,150,655+self.n,150+self.n)
-        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y2,text=kuro_roller_count,tag="item_count")
+#        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y2,text=kuro_roller_count,tag="item_count")
 #アイテム５は小さいハンマー
         self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y3,image=self.hummarCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,250,555+self.n,250+self.n)
         self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y3,text=small_hammer_count,tag="item_count")
 #アイテム６はでかいハンマー
-        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y3,image=self.hummarCg,tag="list_mass_char_item")
+#        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y3,image=self.hummarCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,250,655+self.n,250+self.n)
-        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y3,text=big_hammer_count,tag="item_count")
+#        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y3,text=big_hammer_count,tag="item_count")
 #アイテム７はオレンジカラーボール
-        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y4,image=self.bakdan,tag="list_mass_char_item")
+#        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y4,image=self.bakdan,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,350,555+self.n,350+self.n)
-        self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y4,text=orange_colorball_count,tag="item_count")
+#        self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y4,text=orange_colorball_count,tag="item_count")
 #アイテム８は黒カラーボール
-        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y4,image=self.bakdan,tag="list_mass_char_item")
+#        self.canvas.create_image(ITEM_LIST_X2,LIST_ITEM_Y4,image=self.bakdan,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(655,350,655+self.n,350+self.n)
-        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y4,text=kuro_colorball_count,tag="item_count")
+#        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y4,text=kuro_colorball_count,tag="item_count")
     
     def item_count_repaint(self, orange_hake_count,
             kuro_hake_count, orange_roller_count,
