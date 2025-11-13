@@ -25,7 +25,7 @@ class CanvasData:
         self.canvas = tk.Canvas(master, width=700+5, height=500+5, bg="white")
         directory = "./gazou/"
         # ファイルパスを保持して、Pillow に渡すときは path を使う
-        self.jiki_path = directory + "playerC50x50.png"
+        self.jiki_path = directory + "playerC_A50x50.png"
         self.blickblock_path = directory + "brickblock50x50.png"
         self.bakdan_path = directory + "bakudan50x50.png"
         self.hake_path = directory + "hake50x50.png"
@@ -67,35 +67,53 @@ class CanvasData:
 
                 #はけ
                 if mapdata.get_item(y, x) == 1:
-#                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
-                    self.create_image_with_alpha(50*x,50*y, path=self.hake_path, alpha=150, anchor="nw", tags=("overlay",))
-                '''
-                if mapdata.get_item(y, x) == 2:
-                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
-                    self.canvas.create_text(50*x+25+5,50*y+25+5,text="2",tag="mass_char_item")
-                '''
+                    # はけ画像：透過対象色=紫、tolerance=10、画像全体は不透明(alpha=255)
+                    self.create_image_with_alpha(
+                        50*x, 50*y,
+                        path=self.hake_path,
+                        alpha=255,
+                        anchor="nw",
+                        tags=("mass_char_item",),
+                        transparent_color=(234,63,247),
+                        tolerance=10
+                    )
 
                 #ローラー
                 if mapdata.get_item(y, x) == 3:
-                    self.canvas.create_text(50*x+25+5,50*y+25+5,text="3",tag="mass_char_item")
-                '''
-                if mapdata.get_item(y, x) == 4:
-                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
-                '''
+                    # ローラー画像：透過対象色=紫、tolerance=10、画像全体は不透明(alpha=255)
+                    self.create_image_with_alpha(
+                        50*x, 50*y,
+                        path=self.roll_path,
+                        alpha=255,
+                        anchor="nw",
+                        tags=("mass_char_item",),
+                        transparent_color=(234,63,247),
+                        tolerance=10
+                    )
 
-                #ハンマー
+                #爆弾
                 if mapdata.get_item(y, x) == 5:
-                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hummarCg,tag="mass_char_item")
-                '''
-                if mapdata.get_item(y, x) == 6:
-                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
-                if mapdata.get_item(y, x) == 7:
-                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
-                if mapdata.get_item(y, x) == 8:
-                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
-                '''
+                    # 爆弾画像：透過対象色=紫、tolerance=10、画像全体は不透明(alpha=255)
+                    self.create_image_with_alpha(
+                        50*x, 50*y,
+                        path=self.bakdan_path,
+                        alpha=255,
+                        anchor="nw",
+                        tags=("mass_char_item",),
+                        transparent_color=(234,63,247),
+                        tolerance=10
+                    )
                 
-        self.create_image_with_alpha(50*cx, 50*cy, path=self.jiki_path, alpha=150, anchor="nw", tags=("overlay",))
+        # プレイヤー画像の指定色（紫）を透過する（透過対象は完全透過、画像全体は不透明）
+        self.create_image_with_alpha(
+            50*cx, 50*cy,
+            path=self.jiki_path,
+            alpha=255,  # 透過度を100%（画像本体は不透明、透過対象色は完全に透過）
+            anchor="nw",
+            tags=("overlay",),
+            transparent_color=(234,63,247),  # 紫
+            tolerance=10
+        )
     
     def pack(self):
         self.canvas.pack()
@@ -115,8 +133,34 @@ class CanvasData:
         アイテムリスト　→に表示
         '''
         self.n = 30
-#       アイテム１はオレンジはけ
-        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y1,image=self.hakeCg,tag="list_mass_char_item")
+        # アイテム１はオレンジはけ：紫を透過、tolerance=10、画像全体は不透明(alpha=255)
+        self.create_image_with_alpha(
+            ITEM_LIST_X1, LIST_ITEM_Y1,
+            path=self.hake_path,
+            alpha=255,
+            anchor="center",
+            tags=("list_mass_char_item",),
+            transparent_color=(234,63,247),
+            tolerance=10
+        )
+        self.create_image_with_alpha(
+            ITEM_LIST_X1, LIST_ITEM_Y2,
+            path=self.roll_path,
+            alpha=255,
+            anchor="center",
+            tags=("list_mass_char_item",),
+            transparent_color=(234,63,247),
+            tolerance=10
+        )
+        self.create_image_with_alpha(
+            ITEM_LIST_X1, LIST_ITEM_Y3,
+            path=self.bakdan_path,
+            alpha=255,
+            anchor="center",
+            tags=("list_mass_char_item",),
+            transparent_color=(234,63,247),
+            tolerance=10
+        )
 #        self.canvas.create_rectangle(555,50,555+self.n,50+self.n)
         self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y1,text=orange_hake_count,tag="item_count")
 #アイテム２は黒はけ
@@ -124,7 +168,6 @@ class CanvasData:
 #        self.canvas.create_rectangle(655,50,655+self.n,50+self.n)
 #        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y1,text=kuro_hake_count,tag="item_count")
 #アイテム３はオレンジローラー
-        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y2,image=self.rollCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,150,555+self.n,150+self.n)
         self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y2,text=orange_roller_count,tag="item_count")
 #アイテム４は黒ローラー
@@ -132,7 +175,6 @@ class CanvasData:
 #        self.canvas.create_rectangle(655,150,655+self.n,150+self.n)
 #        self.canvas.create_text(ITEM_LIST_X2,LIST_TEXT_Y2,text=kuro_roller_count,tag="item_count")
 #アイテム５は小さいハンマー
-        self.canvas.create_image(ITEM_LIST_X1,LIST_ITEM_Y3,image=self.hummarCg,tag="list_mass_char_item")
 #        self.canvas.create_rectangle(555,250,555+self.n,250+self.n)
         self.canvas.create_text(ITEM_LIST_X1,LIST_TEXT_Y3,text=small_hammer_count,tag="item_count")
 #アイテム６はでかいハンマー
@@ -187,30 +229,59 @@ class CanvasData:
         if mass_continued_num[3] > 0:
             self.create_rectangle(50*cx,50*(cy+1),50*(cx+1),50*(cy + mass_continued_num[3]+1),c4,5,"item_waku")
 
-    def load_image_with_alpha(self, path, alpha=200):
+    def load_image_with_alpha(self, path, alpha=255):
         """
         path: 画像ファイルパス（RGBA PNG 推奨）
         alpha: 0(完全透明)~255(不透明) のアルファ値（既存アルファに乗算）
         戻り値: ImageTk.PhotoImage
         """
+        # 互換性のため引数に透明化カラー/tolerance をサポート（呼び出し側で渡す）
         img = Image.open(path).convert("RGBA")
+        # 呼び出し側が透明化をしたい場合は、create_image_with_alpha 側から引数で渡すため
+        # ここでは alpha の乗算処理のみ行う（transparent_color 処理は下の分岐で行うことを想定）
+        # （下の create_image_with_alpha が透明化を渡すための実装に合わせている）
+        # この関数は呼び出し側で transparent_color/tolerance を渡されていればそれらを受け取れるようにしている。
+        # ただし既存呼び出しとの互換性を保つため、呼び出し側で透明化処理を行う実装へ変更します。
+        # ここでは alpha を適用して戻すのみ。
         if alpha < 255:
             r, g, b, a = img.split()
-            # 既存アルファに乗算して透過度を調整
             a = a.point(lambda p: int(p * (alpha / 255.0)))
             img = Image.merge("RGBA", (r, g, b, a))
         tk_img = ImageTk.PhotoImage(img)
-        # GCされないように参照を保持
         if not hasattr(self, "_image_refs"):
             self._image_refs = []
         self._image_refs.append(tk_img)
         return tk_img
 
-    def create_image_with_alpha(self, x, y, path, alpha=200, **create_kwargs):
+    def create_image_with_alpha(self, x, y, path, alpha=255, transparent_color=(234,63,247), tolerance=0, **create_kwargs):
         """
-        Canvas.create_image ラッパー（self.canvas を使用）。
-        path はファイルパス（str）を渡してください。
+        Canvas.create_image のラッパー。
+        - path: 画像ファイルパス（RGBA PNG 推奨）
+        - alpha: 0~255（既存アルファに乗算）
+        - transparent_color: (r,g,b) を渡すとその色に近いピクセルを完全透過にする
+        - tolerance: transparent_color との許容差（0 で完全一致）
         """
-        tk_img = self.load_image_with_alpha(path, alpha)
-        # Canvas の create_image を使う（self.create_image は定義されていない）
+        img = Image.open(path).convert("RGBA")
+        # transparent_color が指定されていれば、その色に近いピクセルを透過（alpha=0）にする
+        if transparent_color is not None:
+            rt, gt, bt = transparent_color
+            datas = img.getdata()
+            newData = []
+            tol = int(tolerance)
+            for item in datas:
+                r, g, b, a = item
+                if abs(r - rt) <= tol and abs(g - gt) <= tol and abs(b - bt) <= tol:
+                    newData.append((r, g, b, 0))
+                else:
+                    newData.append((r, g, b, a))
+            img.putdata(newData)
+        # alpha の乗算処理
+        if alpha < 255:
+            r, g, b, a = img.split()
+            a = a.point(lambda p: int(p * (alpha / 255.0)))
+            img = Image.merge("RGBA", (r, g, b, a))
+        tk_img = ImageTk.PhotoImage(img)
+        if not hasattr(self, "_image_refs"):
+            self._image_refs = []
+        self._image_refs.append(tk_img)
         return self.canvas.create_image(x + 5, y + 5, image=tk_img, **create_kwargs)
