@@ -67,9 +67,8 @@ class CanvasData:
 
                 #はけ
                 if mapdata.get_item(y, x) == 1:
-                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
-                    self.canvas.create_text(50*x+25+5,50*y+25+5,text="1",fill="white", tag="mass_char_item")
-
+#                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
+                    self.create_image_with_alpha(50*x,50*y, path=self.hake_path, alpha=150, anchor="nw", tags=("overlay",))
                 '''
                 if mapdata.get_item(y, x) == 2:
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
@@ -79,27 +78,21 @@ class CanvasData:
                 #ローラー
                 if mapdata.get_item(y, x) == 3:
                     self.canvas.create_text(50*x+25+5,50*y+25+5,text="3",tag="mass_char_item")
-                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                 '''
                 if mapdata.get_item(y, x) == 4:
-                    self.canvas.create_text(50*x+25+5,50*y+25+5,text="4",tag="mass_char_item")
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
                 '''
 
                 #ハンマー
                 if mapdata.get_item(y, x) == 5:
-                    self.canvas.create_text(50*x+25+5,50*y+25+5,text="5",tag="mass_char_item")
-                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
+                    self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hummarCg,tag="mass_char_item")
                 '''
                 if mapdata.get_item(y, x) == 6:
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
-                    self.canvas.create_text(50*x+25+5,50*y+25+5,text="6",tag="mass_char_item")
                 if mapdata.get_item(y, x) == 7:
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
-                    self.canvas.create_text(50*x+25+5,50*y+25+5,text="7",tag="mass_char_item")
                 if mapdata.get_item(y, x) == 8:
                     self.canvas.create_image(50*x+25+5,50*y+25+5,image=self.hakeCg,tag="mass_char_item")
-                    self.canvas.create_text(50*x+25+5,50*y+25+5,text="8",tag="mass_char_item")
                 '''
                 
         self.create_image_with_alpha(50*cx, 50*cy, path=self.jiki_path, alpha=150, anchor="nw", tags=("overlay",))

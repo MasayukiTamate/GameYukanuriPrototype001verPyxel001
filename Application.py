@@ -90,10 +90,9 @@ class Application(tk.Frame):
         self.opt = tk.OptionMenu(master,self.ot,*self.OPTIONLIST,command= self.men_select)
         self.opt.place(x=530,y=450)
 
-        self.canvass = tk.Canvas(master,width=700+5,height=50,bg="lightgray")
-
+        self.canvass = tk.Canvas(master,width=700+20,height=60,bg="lightgray")
         self.canvass.pack()
-        self.canvass.create_text(100,10,text="操作方法：矢印キーで移動、1～8キーでアイテム選択、「W」「A」「D」「S]でカーソルを選択後、Enterキーで使用")
+        self.canvass.create_text(140,20,text="操作方法：矢印キーで移動、1～8キーでアイテム選択、\n「W」「A」「D」「S]でカーソルを選択後、Enterキーで使用")
 
 
 
