@@ -39,7 +39,6 @@ class MapData:
             for m in mm:
                 
                 if m == 0:
-                    print(m)
                     count = count + 1
         self.count = count
         return self.count
